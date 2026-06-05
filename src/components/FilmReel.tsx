@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 
 const CLIPS = [
   "/video/Marfa_IfItAintYou.mp4",
@@ -11,7 +12,7 @@ const CLIPS = [
   "/video/Marfa_LittleMissTwoTime.mp4",
 ];
 
-const CLIP_COUNT = CLIPS.length;
+const FRAME_COUNT = CLIPS.length + 1; // 6 videos + 1 CTA
 
 export default function FilmReel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -19,7 +20,7 @@ export default function FilmReel() {
   const lastPlayingRef = useRef<Set<number>>(new Set());
   const isVisibleRef = useRef(false);
   const [offsets, setOffsets] = useState<number[]>(() =>
-    Array(CLIP_COUNT).fill(0)
+    Array(FRAME_COUNT).fill(0)
   );
 
   const syncPlayback = useCallback((visibleSet: Set<number>) => {
@@ -73,10 +74,10 @@ export default function FilmReel() {
       if (scrolled < 0 || scrolled > scrollRange) return;
 
       const progress = scrolled / scrollRange;
-      const totalTransitions = CLIP_COUNT - 1;
+      const totalTransitions = FRAME_COUNT - 1;
 
       const next: number[] = [];
-      for (let i = 0; i < CLIP_COUNT; i++) {
+      for (let i = 0; i < FRAME_COUNT; i++) {
         const transitionStart = i / totalTransitions;
         const transitionEnd = (i + 1) / totalTransitions;
         const clipProgress =
@@ -86,10 +87,12 @@ export default function FilmReel() {
       }
 
       const visible = new Set<number>();
-      for (let i = 0; i < CLIP_COUNT; i++) {
+      for (let i = 0; i < FRAME_COUNT; i++) {
         if (next[i] > -100) {
-          visible.add(i);
-          if (next[i] < 0 && i + 1 < CLIP_COUNT) {
+          // This frame is at least partially on screen
+          if (i < CLIPS.length) visible.add(i);
+          // If it's mid-wipe, the next frame is revealed underneath
+          if (next[i] < 0 && i + 1 < FRAME_COUNT && i + 1 < CLIPS.length) {
             visible.add(i + 1);
           }
           break;
@@ -112,7 +115,7 @@ export default function FilmReel() {
     <section
       ref={sectionRef}
       className="relative"
-      style={{ height: `${CLIP_COUNT * 100}vh` }}
+      style={{ height: `${FRAME_COUNT * 100}vh` }}
     >
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
         <div className="relative w-full h-[240px] md:h-0 md:pb-[28.09%]">
@@ -122,7 +125,7 @@ export default function FilmReel() {
               className="absolute inset-0 will-change-transform overflow-hidden"
               style={{
                 transform: `translateX(${offsets[i]}%)`,
-                zIndex: CLIP_COUNT - i,
+                zIndex: FRAME_COUNT - i,
               }}
             >
               <video
@@ -134,10 +137,33 @@ export default function FilmReel() {
                 muted
                 loop
                 playsInline
+                preload="none"
                 className="w-full h-full object-cover"
               />
             </div>
           ))}
+
+          {/* Frame 7: CTA card */}
+          <div
+            className="absolute inset-0 will-change-transform overflow-hidden"
+            style={{
+              transform: `translateX(${offsets[CLIPS.length]}%)`,
+              zIndex: 1,
+            }}
+          >
+            <Link
+              href="/video"
+              className="w-full h-full flex items-center justify-center group"
+              style={{ backgroundColor: "var(--color-black)" }}
+            >
+              <span
+                className="font-[family-name:var(--font-display)] text-sm md:text-base uppercase tracking-[0.2em] group-hover:opacity-60 transition-opacity"
+                style={{ color: "var(--color-cream)" }}
+              >
+                Watch the Videos
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

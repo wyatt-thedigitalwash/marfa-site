@@ -18,9 +18,58 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://marfabandofficial.com"),
   title: "Marfa | Official Site",
   description:
-    "Country-rock and Americana. Born from Texas, Colorado, and California's Laurel Canyon.",
+    "Country-rock and Americana band on Big Machine Records. Born from Texas, Colorado, and California's Laurel Canyon.",
+  robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+  openGraph: {
+    type: "website",
+    siteName: "Marfa",
+    title: "Marfa | Official Site",
+    description:
+      "Country-rock and Americana band on Big Machine Records. Born from Texas, Colorado, and California's Laurel Canyon.",
+    url: "https://marfabandofficial.com",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marfa | Official Site",
+    description:
+      "Country-rock and Americana band on Big Machine Records. Born from Texas, Colorado, and California's Laurel Canyon.",
+    images: ["/og-image.jpg"],
+  },
+  alternates: {
+    canonical: "https://marfabandofficial.com",
+  },
+  other: {
+    "theme-color": "#E8E3CF",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  name: "Marfa",
+  url: "https://marfabandofficial.com",
+  description:
+    "Country-rock and Americana band on Big Machine Records. Born from Texas, Colorado, and California's Laurel Canyon.",
+  image: "https://marfabandofficial.com/og-image.jpg",
+  genre: ["Country Rock", "Americana"],
+  sameAs: [
+    "https://www.instagram.com/marfabandofficial/",
+    "https://www.tiktok.com/@officialmarfaband",
+    "https://www.facebook.com/marfabandofficial",
+    "https://www.youtube.com/@officialmarfa",
+    "https://open.spotify.com/artist/0qQCr8kpPnhZHnnHoVtErD",
+    "https://music.apple.com/us/artist/marfa/1764209879",
+    "https://music.amazon.com/artists/B0FHBWNFGM/marfa",
+  ],
 };
 
 export default function RootLayout({
@@ -34,8 +83,15 @@ export default function RootLayout({
       className={`${boringSans.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <a href="#main-content" className="skip-to-content">
+          Skip to main content
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

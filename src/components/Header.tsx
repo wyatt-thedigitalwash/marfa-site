@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: "Music", href: "/music" },
   { label: "Video", href: "/video" },
   { label: "Tour", href: "/tour" },
+  { label: "Follow", href: "/follow" },
   {
     label: "Merch",
     href: "https://www.shop.marfabandofficial.com/",
@@ -24,10 +25,13 @@ const SOCIAL_LINKS = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [overDarkHero, setOverDarkHero] = useState(true);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!isHome) {
@@ -40,7 +44,7 @@ export default function Header() {
       const y = window.scrollY;
       const vh = window.innerHeight;
       setScrolled(y > vh * 3);
-      setOverDarkHero(y < vh);
+      setOverDarkHero(y < vh * 3);
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -59,6 +63,66 @@ export default function Header() {
     };
   }, [menuOpen]);
 
+  // Open: mount overlay, then trigger visible on next frame
+  const openMenu = useCallback(() => {
+    setMenuOpen(true);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setMenuVisible(true);
+      });
+    });
+  }, []);
+
+  // Close: fade out, then unmount after transition
+  const closeMenu = useCallback(() => {
+    setMenuVisible(false);
+    setTimeout(() => {
+      setMenuOpen(false);
+      menuButtonRef.current?.focus();
+    }, 500);
+  }, []);
+
+  // Escape key closes menu
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeMenu();
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen, closeMenu]);
+
+  // Focus trap inside mobile overlay
+  useEffect(() => {
+    if (!menuVisible || !overlayRef.current) return;
+    const overlay = overlayRef.current;
+    const focusable = overlay.querySelectorAll<HTMLElement>(
+      'a[href], button, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first.focus();
+
+    function onTab(e: KeyboardEvent) {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+    overlay.addEventListener("keydown", onTab);
+    return () => overlay.removeEventListener("keydown", onTab);
+  }, [menuVisible]);
+
   const showSolidBg = !isHome || scrolled;
   const textColor =
     isHome && overDarkHero ? "var(--color-cream)" : "var(--color-black)";
@@ -74,6 +138,7 @@ export default function Header() {
         <div className="flex items-center justify-between px-6 md:px-10 py-5">
           <Link
             href="/"
+            aria-label="Marfa - Home"
             className="font-[family-name:var(--font-display)] text-2xl md:text-3xl uppercase tracking-[0.2em] transition-colors duration-300"
             style={{ color: textColor }}
           >
@@ -81,7 +146,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) =>
               link.external ? (
                 <a
@@ -89,16 +154,17 @@ export default function Header() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em] hover:opacity-60 transition-all duration-300"
+                  className="font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em] hover:opacity-60 transition-all duration-300 min-h-[44px] flex items-center"
                   style={{ color: textColor }}
                 >
                   {link.label}
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               ) : (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em] hover:opacity-60 transition-all duration-300"
+                  className="font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em] hover:opacity-60 transition-all duration-300 min-h-[44px] flex items-center"
                   style={{ color: textColor }}
                 >
                   {link.label}
@@ -109,8 +175,11 @@ export default function Header() {
 
           {/* Mobile menu toggle */}
           <button
-            onClick={() => setMenuOpen(true)}
-            className="md:hidden font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em] transition-colors duration-300"
+            ref={menuButtonRef}
+            onClick={openMenu}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            className="md:hidden font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em] transition-colors duration-300 min-h-[44px] min-w-[44px] flex items-center justify-end"
             style={{ color: textColor }}
             aria-label="Open menu"
           >
@@ -122,57 +191,86 @@ export default function Header() {
       {/* Mobile overlay */}
       {menuOpen && (
         <div
-          className="fixed inset-0 z-[60] flex flex-col items-center justify-center"
-          style={{ backgroundColor: "var(--color-black)" }}
+          ref={overlayRef}
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          className="fixed inset-0 z-[60] flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out"
+          style={{
+            backgroundColor: "var(--color-black)",
+            opacity: menuVisible ? 1 : 0,
+          }}
         >
           <button
-            onClick={() => setMenuOpen(false)}
-            className="absolute top-5 right-6 font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em]"
-            style={{ color: "var(--color-cream)" }}
+            onClick={closeMenu}
+            className="absolute top-5 right-6 font-[family-name:var(--font-display)] text-xs uppercase tracking-[0.18em] min-h-[44px] min-w-[44px] flex items-center justify-end transition-opacity duration-500 ease-in-out"
+            style={{
+              color: "var(--color-cream)",
+              opacity: menuVisible ? 1 : 0,
+              transitionDelay: menuVisible ? "300ms" : "0ms",
+            }}
             aria-label="Close menu"
           >
             Close
           </button>
 
-          <nav className="flex flex-col items-center gap-8">
-            {NAV_LINKS.map((link) =>
-              link.external ? (
+          <nav aria-label="Mobile navigation" className="flex flex-col items-center gap-8">
+            {NAV_LINKS.map((link, i) => {
+              const delay = menuVisible ? `${150 + i * 80}ms` : "0ms";
+              const style = {
+                color: "var(--color-cream)",
+                opacity: menuVisible ? 1 : 0,
+                transform: menuVisible ? "translateY(0)" : "translateY(12px)",
+                transition: "opacity 500ms ease-in-out, transform 500ms ease-in-out",
+                transitionDelay: delay,
+              };
+
+              return link.external ? (
                 <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setMenuOpen(false)}
-                  className="font-[family-name:var(--font-display)] text-2xl uppercase tracking-[0.2em]"
-                  style={{ color: "var(--color-cream)" }}
+                  onClick={closeMenu}
+                  className="font-[family-name:var(--font-display)] text-2xl uppercase tracking-[0.2em] min-h-[44px] flex items-center"
+                  style={style}
                 >
                   {link.label}
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               ) : (
                 <Link
                   key={link.label}
                   href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="font-[family-name:var(--font-display)] text-2xl uppercase tracking-[0.2em]"
-                  style={{ color: "var(--color-cream)" }}
+                  onClick={closeMenu}
+                  className="font-[family-name:var(--font-display)] text-2xl uppercase tracking-[0.2em] min-h-[44px] flex items-center"
+                  style={style}
                 >
                   {link.label}
                 </Link>
-              )
-            )}
+              );
+            })}
           </nav>
 
-          <div className="absolute bottom-10 flex items-center gap-6">
+          <div
+            className="absolute bottom-10 flex items-center gap-6 transition-opacity duration-500 ease-in-out"
+            style={{
+              opacity: menuVisible ? 1 : 0,
+              transitionDelay: menuVisible ? "500ms" : "0ms",
+            }}
+          >
             {SOCIAL_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-[family-name:var(--font-body)] text-sm underline"
+                className="font-[family-name:var(--font-body)] text-sm underline min-h-[44px] flex items-center"
                 style={{ color: "var(--color-cream)" }}
               >
                 {link.label}
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             ))}
           </div>

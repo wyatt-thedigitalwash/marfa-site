@@ -2,13 +2,14 @@ import Image from "next/image";
 
 export default function HeroStack() {
   return (
-    <section className="relative" style={{ height: "300vh" }}>
+    <section aria-label="Hero" className="relative" style={{ height: "300vh" }}>
       {/* Panel 1: The front door */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <Image
           src="/banners/MarfaBanner_Desktop.jpg"
           alt="Marfa band"
           fill
+          sizes="100vw"
           className="object-cover hidden md:block"
           priority
         />
@@ -16,6 +17,7 @@ export default function HeroStack() {
           src="/banners/MarfaBanner_Mobile.jpg"
           alt="Marfa band"
           fill
+          sizes="100vw"
           className="object-cover md:hidden"
           priority
         />
@@ -40,6 +42,7 @@ export default function HeroStack() {
         href="https://marfamusic.ffm.to/ifitaintyou"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Listen to If It Ain't You (opens in new tab)"
         className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden"
         style={{ display: "flex" }}
       >
@@ -47,12 +50,14 @@ export default function HeroStack() {
           src="/banners/Marfa_IfItAintYou_BannerDesktop.jpg"
           alt="If It Ain't You by Marfa"
           fill
+          sizes="100vw"
           className="object-cover hidden md:block"
         />
         <Image
           src="/banners/Marfa_IfItAintYou_BannerMobile.jpg"
           alt="If It Ain't You by Marfa"
           fill
+          sizes="100vw"
           className="object-cover md:hidden"
         />
         <span
@@ -71,6 +76,7 @@ export default function HeroStack() {
         href="https://ffm.to/americanblues"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Listen to American Blues (opens in new tab)"
         className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden"
         style={{ display: "flex" }}
       >
@@ -78,12 +84,14 @@ export default function HeroStack() {
           src="/banners/Marfa_AmericanBlues_BannerDesktop.jpg"
           alt="American Blues by Marfa"
           fill
+          sizes="100vw"
           className="object-cover hidden md:block"
         />
         <Image
           src="/banners/Marfa_AmericanBlues_BannerMobile.jpg"
           alt="American Blues by Marfa"
           fill
+          sizes="100vw"
           className="object-cover md:hidden"
         />
         <span

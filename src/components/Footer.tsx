@@ -11,6 +11,7 @@ function InstagramIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
       <circle cx="12" cy="12" r="5" />
@@ -30,6 +31,7 @@ function FacebookIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
     </svg>
@@ -47,6 +49,7 @@ function YouTubeIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z" />
       <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
@@ -65,6 +68,7 @@ function TikTokIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
     </svg>
@@ -82,6 +86,7 @@ function SpotifyIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <circle cx="12" cy="12" r="10" />
       <path d="M8 14.5c2.5-1 5.5-1 8 0" />
@@ -102,6 +107,7 @@ function AppleMusicIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M9 18V5l12-2v13" />
       <circle cx="6" cy="18" r="3" />
@@ -121,6 +127,7 @@ function AmazonMusicIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
     >
       <path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3" />
       <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
@@ -168,14 +175,16 @@ const SOCIAL_LINKS = [
 ];
 
 const FOOTER_LINKS = [
-  { label: "Privacy", href: "#" },
+  { label: "Privacy", href: "/privacy" },
+  { label: "Cookie Choices", href: "/privacy#cookies" },
   { label: "Terms & Conditions", href: "#" },
-  { label: "Do Not Sell My Personal Information", href: "#" },
+  { label: "Do Not Sell My Personal Information", href: "/privacy" },
 ];
 
 export default function Footer() {
   return (
     <footer
+      aria-label="Site footer"
       className="py-16 px-6 md:px-10"
       style={{ backgroundColor: "var(--color-black)", color: "var(--color-cream)" }}
     >
@@ -188,8 +197,8 @@ export default function Footer() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={link.label}
-              className="hover:opacity-60 transition-opacity"
+              aria-label={`${link.label} (opens in new tab)`}
+              className="hover:opacity-60 transition-opacity min-h-[44px] min-w-[44px] flex items-center justify-center"
               style={{ color: "var(--color-cream)" }}
             >
               {link.icon}
@@ -211,6 +220,7 @@ export default function Footer() {
             <span key={link.label} className="flex items-center gap-4">
               {i > 0 && (
                 <span
+                  aria-hidden="true"
                   className="text-xs"
                   style={{ color: "var(--color-cream)", opacity: 0.3 }}
                 >
@@ -219,7 +229,7 @@ export default function Footer() {
               )}
               <a
                 href={link.href}
-                className="font-[family-name:var(--font-body)] text-xs underline hover:opacity-60 transition-opacity"
+                className="font-[family-name:var(--font-body)] text-xs underline hover:opacity-60 transition-opacity min-h-[44px] flex items-center"
                 style={{ color: "var(--color-cream)", opacity: 0.7 }}
               >
                 {link.label}
