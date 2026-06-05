@@ -1,28 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-cream: #E8E3CF;
+  --color-black: #211F21;
+  --font-display: var(--font-boring-sans);
+  --font-body: var(--font-newsreader);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: #E8E3CF;
+  --color-black: #211F21;
+  --font-display: var(--font-boring-sans);
+  --font-body: var(--font-newsreader);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-black);
+  font-family: var(--font-body), Georgia, serif;
 }
 
 /* Section Spacing Rule
@@ -33,3 +28,4 @@ section[data-bg="dark"] + section[data-bg="dark"],
 section[data-bg="accent"] + section[data-bg="accent"] {
   padding-top: 0;
 }
+
