@@ -28,13 +28,16 @@ export default function Header() {
   const [menuVisible, setMenuVisible] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const [scrolled, setScrolled] = useState(!isHome);
-  const [overDarkHero, setOverDarkHero] = useState(isHome);
-  const [hideLogo, setHideLogo] = useState(isHome);
+  const [scrolled, setScrolled] = useState(false);
+  const [overDarkHero, setOverDarkHero] = useState(true);
+  const [hideLogo, setHideLogo] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    setMounted(true);
+
     if (!isHome) {
       setScrolled(true);
       setOverDarkHero(false);
@@ -126,7 +129,7 @@ export default function Header() {
     return () => overlay.removeEventListener("keydown", onTab);
   }, [menuVisible]);
 
-  const showSolidBg = !isHome || scrolled;
+  const showSolidBg = mounted && (!isHome || scrolled);
   const textColor =
     isHome && overDarkHero ? "var(--color-cream)" : "var(--color-black)";
 
