@@ -26,10 +26,11 @@ const SOCIAL_LINKS = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [overDarkHero, setOverDarkHero] = useState(true);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const [scrolled, setScrolled] = useState(!isHome);
+  const [overDarkHero, setOverDarkHero] = useState(isHome);
+  const [hideLogo, setHideLogo] = useState(isHome);
   const overlayRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -37,6 +38,7 @@ export default function Header() {
     if (!isHome) {
       setScrolled(true);
       setOverDarkHero(false);
+      setHideLogo(false);
       return;
     }
 
@@ -45,6 +47,7 @@ export default function Header() {
       const vh = window.innerHeight;
       setScrolled(y > vh * 3);
       setOverDarkHero(y < vh * 3);
+      setHideLogo(y < vh);
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -139,8 +142,8 @@ export default function Header() {
           <Link
             href="/"
             aria-label="Marfa - Home"
-            className="font-[family-name:var(--font-display)] text-2xl md:text-3xl uppercase tracking-[0.2em] transition-colors duration-300"
-            style={{ color: textColor }}
+            className="font-[family-name:var(--font-display)] text-2xl md:text-3xl uppercase tracking-[0.2em] transition-all duration-300"
+            style={{ color: textColor, opacity: hideLogo ? 0 : 1 }}
           >
             Marfa
           </Link>

@@ -4,15 +4,19 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 
 const CLIPS = [
-  "/video/Marfa_IfItAintYou.mp4",
-  "/video/Marfa_AmericanBlues.mp4",
   "/video/Marfa_AMillionWays.mp4",
   "/video/Marfa_Daisy.mp4",
   "/video/Marfa_AmericanLonely.mp4",
   "/video/Marfa_LittleMissTwoTime.mp4",
 ];
 
-const FRAME_COUNT = CLIPS.length + 1; // 6 videos + 1 CTA
+const FRAME_COUNT = CLIPS.length + 1; // 4 videos + 1 CTA
+
+async function prefetchVideos() {
+  for (const src of CLIPS) {
+    await fetch(src, { priority: "low" } as RequestInit).catch(() => {});
+  }
+}
 
 export default function FilmReel() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -42,6 +46,19 @@ export default function FilmReel() {
     });
   }, []);
 
+  useEffect(() => {
+    let prefetched = false;
+    function onScroll() {
+      if (prefetched) return;
+      if (window.scrollY > window.innerHeight) {
+        prefetched = true;
+        prefetchVideos();
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const pauseAll = useCallback(() => {
     lastPlayingRef.current = new Set();
     videoRefs.current.forEach((video) => video?.pause());
@@ -54,7 +71,14 @@ export default function FilmReel() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisibleRef.current = entry.isIntersecting;
-        if (!entry.isIntersecting) {
+        if (entry.isIntersecting) {
+          // Start the first video as soon as the section enters viewport
+          const video = videoRefs.current[0];
+          if (video) {
+            video.muted = true;
+            video.play().catch(() => {});
+          }
+        } else {
           pauseAll();
         }
       },
@@ -137,7 +161,7 @@ export default function FilmReel() {
                 muted
                 loop
                 playsInline
-                preload="none"
+                preload="auto"
                 className="w-full h-full object-cover"
               />
             </div>
