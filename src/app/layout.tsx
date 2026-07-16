@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import localFont from "next/font/local";
 import { Newsreader } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MetaPixel from "@/components/MetaPixel";
+import GoogleTags from "@/components/GoogleTags";
 import "./globals.css";
+
+// Google Tag Manager container ported from the legacy WordPress site.
+// This container manages GA4 (G-FVWZ0RM4DH), Google Ads (AW-17574370157),
+// the Meta Pixel (1858545644702596), and the UMG audience/consent stack
+// (ad.gt, HadronID, Evidon consent banner) -- they load through GTM.
+const GTM_ID = "GTM-5MF7DJ3X";
 
 const boringSans = localFont({
   src: "../../public/fonts/BoringSansBold.ttf",
@@ -82,7 +91,27 @@ export default function RootLayout({
       lang="en"
       className={`${boringSans.variable} ${newsreader.variable} h-full antialiased`}
     >
+      <head>
+        <Script
+          id="gtm-loader"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
+        <MetaPixel />
+        <GoogleTags />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

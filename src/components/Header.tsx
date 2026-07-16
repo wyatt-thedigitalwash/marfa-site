@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
@@ -48,9 +49,13 @@ export default function Header() {
     function onScroll() {
       const y = window.scrollY;
       const vh = window.innerHeight;
-      setScrolled(y > vh * 3);
-      setOverDarkHero(y < vh * 3);
-      setHideLogo(y < vh);
+      // Hero is a single viewport tall. Flip the header (solid bg, dark text,
+      // header logo) right as it reaches the end of the hero / start of Tour.
+      const HEADER_OFFSET = 80;
+      const pastHero = y > vh - HEADER_OFFSET;
+      setScrolled(pastHero);
+      setOverDarkHero(!pastHero);
+      setHideLogo(!pastHero);
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -130,8 +135,8 @@ export default function Header() {
   }, [menuVisible]);
 
   const showSolidBg = mounted && (!isHome || scrolled);
-  const textColor =
-    isHome && overDarkHero ? "var(--color-cream)" : "var(--color-black)";
+  const overDark = isHome && overDarkHero;
+  const textColor = overDark ? "#FFFFFF" : "var(--color-black)";
 
   return (
     <>
@@ -145,10 +150,18 @@ export default function Header() {
           <Link
             href="/"
             aria-label="Marfa - Home"
-            className="font-[family-name:var(--font-display)] text-2xl md:text-3xl uppercase tracking-[0.2em] transition-all duration-300"
-            style={{ color: textColor, opacity: hideLogo ? 0 : 1 }}
+            className="inline-flex items-center transition-opacity duration-300"
+            style={{ opacity: hideLogo ? 0 : 1 }}
           >
-            Marfa
+            <Image
+              src={overDark ? "/branding/Marfa_LogoWhite.png" : "/branding/Marfa_LogoBlack.png"}
+              alt="Marfa"
+              width={1920}
+              height={1090}
+              priority
+              unoptimized
+              className="h-7 md:h-9 w-auto"
+            />
           </Link>
 
           {/* Desktop nav */}

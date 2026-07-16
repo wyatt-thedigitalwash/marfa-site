@@ -171,7 +171,7 @@ export default function Signup() {
             >
               By submitting this form, you agree to the{" "}
               <a
-                href="/privacy"
+                href="https://www.bigmachinerecords.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:opacity-70 transition-opacity"

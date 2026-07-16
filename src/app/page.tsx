@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import HeroStack from "@/components/HeroStack";
 import FilmReel from "@/components/FilmReel";
 import About from "@/components/About";
+import Highlights from "@/components/Highlights";
 import TourPreview from "@/components/TourPreview";
 import Signup from "@/components/Signup";
 
@@ -33,12 +34,7 @@ export default function Home() {
     <>
       <HeroStack />
 
-      {/* Breath */}
-      <section
-        className="py-20 md:py-32"
-        style={{ backgroundColor: "var(--color-cream)" }}
-        aria-hidden="true"
-      />
+      <TourPreview />
 
       <FilmReel />
 
@@ -50,7 +46,7 @@ export default function Home() {
       />
 
       <About />
-      <TourPreview />
+      <Highlights />
       <Signup />
     </>
   );

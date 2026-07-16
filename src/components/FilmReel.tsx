@@ -4,10 +4,10 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 
 const CLIPS = [
-  "/video/Marfa_AMillionWays.mp4",
-  "/video/Marfa_Daisy.mp4",
-  "/video/Marfa_AmericanLonely.mp4",
-  "/video/Marfa_LittleMissTwoTime.mp4",
+  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165918/Marfa_AMillionWays_zku2xi.mp4",
+  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165918/Marfa_Daisy_vvsp4k.mp4",
+  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165917/Marfa_AmericanLonely_iq0amm.mp4",
+  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165918/Marfa_LittleMissTwoTime_e59jdf.mp4",
 ];
 
 const FRAME_COUNT = CLIPS.length + 1; // 4 videos + 1 CTA
@@ -142,7 +142,7 @@ export default function FilmReel() {
       style={{ height: `${FRAME_COUNT * 100}vh` }}
     >
       <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
-        <div className="relative w-full h-[240px] md:h-0 md:pb-[28.09%]">
+        <div className="relative w-full h-[300px] md:h-0 md:pb-[34%]">
           {CLIPS.map((src, i) => (
             <div
               key={i}

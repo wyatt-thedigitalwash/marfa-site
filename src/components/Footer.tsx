@@ -175,10 +175,13 @@ const SOCIAL_LINKS = [
 ];
 
 const FOOTER_LINKS = [
-  { label: "Privacy", href: "/privacy" },
-  { label: "Cookie Choices", href: "/privacy#cookies" },
-  { label: "Terms & Conditions", href: "#" },
-  { label: "Do Not Sell My Personal Information", href: "/privacy" },
+  { label: "Privacy", href: "https://www.bigmachinerecords.com/privacy" },
+  { label: "Cookie Choices", href: "https://www.bigmachinerecords.com/privacy#cookies" },
+  { label: "Terms & Conditions", href: "https://www.bigmachinerecords.com/terms" },
+  {
+    label: "Do Not Sell My Personal Information",
+    href: "https://www.bigmachinerecords.com/privacy#10.2",
+  },
 ];
 
 export default function Footer() {
@@ -229,10 +232,13 @@ export default function Footer() {
               )}
               <a
                 href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-[family-name:var(--font-body)] text-xs underline hover:opacity-60 transition-opacity min-h-[44px] flex items-center"
                 style={{ color: "var(--color-cream)", opacity: 0.7 }}
               >
                 {link.label}
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             </span>
           ))}

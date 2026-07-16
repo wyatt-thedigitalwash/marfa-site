@@ -14,7 +14,7 @@ export default function About() {
       <div
         className="absolute inset-0 hidden md:block"
         style={{
-          backgroundImage: "url(/banners/Marfa_AboutBanner_Desktop.jpg)",
+          backgroundImage: "url(/backgrounds/marfa_image4.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -24,7 +24,7 @@ export default function About() {
       {/* Fixed background — mobile: absolutely positioned (avoids iOS Safari bug) */}
       <div className="absolute inset-0 md:hidden">
         <Image
-          src="/banners/Marfa_AboutBanner_Mobile.jpg"
+          src="/backgrounds/marfa_image4.jpg"
           alt="Marfa band"
           fill
           sizes="100vw"
