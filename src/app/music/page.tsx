@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Music | Marfa",
     description:
       "Stream Marfa on Spotify, Apple Music, and Amazon Music. Country-rock and Americana from Big Machine Records.",
-    url: "https://marfabandofficial.com/music",
+    url: "https://www.officialmarfa.com/music",
     type: "website",
     siteName: "Marfa",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
       "Stream Marfa on Spotify, Apple Music, and Amazon Music. Country-rock and Americana from Big Machine Records.",
     images: ["/og-image.jpg"],
   },
-  alternates: { canonical: "https://marfabandofficial.com/music" },
+  alternates: { canonical: "https://www.officialmarfa.com/music" },
 };
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://marfabandofficial.com" },
-    { "@type": "ListItem", position: 2, name: "Music", item: "https://marfabandofficial.com/music" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.officialmarfa.com" },
+    { "@type": "ListItem", position: 2, name: "Music", item: "https://www.officialmarfa.com/music" },
   ],
 };
 

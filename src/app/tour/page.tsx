@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "Tour | Marfa",
     description:
       "See Marfa live. Upcoming tour dates, tickets, and RSVP. Country-rock and Americana on the road.",
-    url: "https://marfabandofficial.com/tour",
+    url: "https://www.officialmarfa.com/tour",
     type: "website",
     siteName: "Marfa",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
       "See Marfa live. Upcoming tour dates, tickets, and RSVP. Country-rock and Americana on the road.",
     images: ["/og-image.jpg"],
   },
-  alternates: { canonical: "https://marfabandofficial.com/tour" },
+  alternates: { canonical: "https://www.officialmarfa.com/tour" },
 };
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://marfabandofficial.com" },
-    { "@type": "ListItem", position: 2, name: "Tour", item: "https://marfabandofficial.com/tour" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.officialmarfa.com" },
+    { "@type": "ListItem", position: 2, name: "Tour", item: "https://www.officialmarfa.com/tour" },
   ],
 };
 

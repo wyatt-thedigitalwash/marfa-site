@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: "Follow | Marfa",
     description:
       "Follow Marfa on Instagram, TikTok, Facebook, YouTube, Spotify, Apple Music, and Amazon Music. Stay updated.",
-    url: "https://marfabandofficial.com/follow",
+    url: "https://www.officialmarfa.com/follow",
     type: "website",
     siteName: "Marfa",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
@@ -21,15 +21,15 @@ export const metadata: Metadata = {
       "Follow Marfa on Instagram, TikTok, Facebook, YouTube, Spotify, Apple Music, and Amazon Music. Stay updated.",
     images: ["/og-image.jpg"],
   },
-  alternates: { canonical: "https://marfabandofficial.com/follow" },
+  alternates: { canonical: "https://www.officialmarfa.com/follow" },
 };
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://marfabandofficial.com" },
-    { "@type": "ListItem", position: 2, name: "Follow", item: "https://marfabandofficial.com/follow" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.officialmarfa.com" },
+    { "@type": "ListItem", position: 2, name: "Follow", item: "https://www.officialmarfa.com/follow" },
   ],
 };
 

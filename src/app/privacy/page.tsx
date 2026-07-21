@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy | Marfa",
     description:
       "Privacy Policy and Cookies Policy for Big Machine Records. How we collect, use, and share your personal data.",
-    url: "https://marfabandofficial.com/privacy",
+    url: "https://www.officialmarfa.com/privacy",
     type: "website",
     siteName: "Marfa",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
@@ -20,15 +20,15 @@ export const metadata: Metadata = {
       "Privacy Policy and Cookies Policy for Big Machine Records. How we collect, use, and share your personal data.",
     images: ["/og-image.jpg"],
   },
-  alternates: { canonical: "https://marfabandofficial.com/privacy" },
+  alternates: { canonical: "https://www.officialmarfa.com/privacy" },
 };
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://marfabandofficial.com" },
-    { "@type": "ListItem", position: 2, name: "Privacy Policy", item: "https://marfabandofficial.com/privacy" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.officialmarfa.com" },
+    { "@type": "ListItem", position: 2, name: "Privacy Policy", item: "https://www.officialmarfa.com/privacy" },
   ],
 };
 

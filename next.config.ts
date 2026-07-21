@@ -15,6 +15,22 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Canonical domain: legacy domain (apex + www) and the non-www new
+      // domain all 301 to https://www.officialmarfa.com, preserving the path.
+      // Host `has` values are anchored (^...$) by Next, so these never loop
+      // and do not match the shop subdomain (shop.marfabandofficial.com).
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: '(www\\.)?marfabandofficial\\.com' }],
+        destination: 'https://www.officialmarfa.com/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'officialmarfa\\.com' }],
+        destination: 'https://www.officialmarfa.com/:path*',
+        permanent: true,
+      },
       // WordPress artifact URLs → home
       { source: '/feed', destination: '/', permanent: true },
       { source: '/feed/:path*', destination: '/', permanent: true },

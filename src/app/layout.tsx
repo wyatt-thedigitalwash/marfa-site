@@ -28,7 +28,7 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://marfabandofficial.com"),
+  metadataBase: new URL("https://www.officialmarfa.com"),
   title: "Marfa | Official Site",
   description:
     "Country-rock and Americana band on Big Machine Records. Born from Texas, Colorado, and California's Laurel Canyon.",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: "Marfa | Official Site",
     description:
       "Country-rock and Americana band on Big Machine Records. Born from Texas, Colorado, and California's Laurel Canyon.",
-    url: "https://marfabandofficial.com",
+    url: "https://www.officialmarfa.com",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
   },
   alternates: {
-    canonical: "https://marfabandofficial.com",
+    canonical: "https://www.officialmarfa.com",
   },
   other: {
     "theme-color": "#E8E3CF",
@@ -66,10 +66,10 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "MusicGroup",
   name: "Marfa",
-  url: "https://marfabandofficial.com",
+  url: "https://www.officialmarfa.com",
   description:
     "Country-rock and Americana band on Big Machine Records. Born from Texas, Colorado, and California's Laurel Canyon.",
-  image: "https://marfabandofficial.com/og-image.jpg",
+  image: "https://www.officialmarfa.com/og-image.jpg",
   genre: ["Country Rock", "Americana"],
   sameAs: [
     "https://www.instagram.com/marfabandofficial/",

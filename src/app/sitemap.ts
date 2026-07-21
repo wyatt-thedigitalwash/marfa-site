@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://marfabandofficial.com';
+  const baseUrl = 'https://www.officialmarfa.com';
   return [
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 1.0 },
     { url: `${baseUrl}/music`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
