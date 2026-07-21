@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { HEADER_SOCIALS } from "@/components/SocialIcons";
 
 const NAV_LINKS = [
   { label: "Music", href: "/music" },
@@ -22,6 +23,8 @@ const SOCIAL_LINKS = [
   { label: "TikTok", href: "https://www.tiktok.com/@officialmarfaband" },
   { label: "Facebook", href: "https://www.facebook.com/marfabandofficial" },
   { label: "YouTube", href: "https://www.youtube.com/@officialmarfa" },
+  { label: "Spotify", href: "https://open.spotify.com/artist/0qQCr8kpPnhZHnnHoVtErD" },
+  { label: "Apple Music", href: "https://music.apple.com/us/artist/marfa/1764209879" },
 ];
 
 export default function Header() {
@@ -190,6 +193,23 @@ export default function Header() {
                 </Link>
               )
             )}
+
+            {/* Social icons, right of the nav links */}
+            <div className="flex items-center gap-4">
+              {HEADER_SOCIALS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${label} (opens in new tab)`}
+                  className="hover:opacity-60 transition-all duration-300 min-h-[44px] flex items-center"
+                  style={{ color: textColor }}
+                >
+                  <Icon />
+                </a>
+              ))}
+            </div>
           </nav>
 
           {/* Mobile menu toggle */}
@@ -273,7 +293,7 @@ export default function Header() {
           </nav>
 
           <div
-            className="absolute bottom-10 flex items-center gap-6 transition-opacity duration-500 ease-in-out"
+            className="absolute bottom-10 left-0 right-0 px-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 transition-opacity duration-500 ease-in-out"
             style={{
               opacity: menuVisible ? 1 : 0,
               transitionDelay: menuVisible ? "500ms" : "0ms",

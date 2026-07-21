@@ -60,6 +60,47 @@ footer :focus-visible {
   left: 0;
 }
 
+/* --- Splash overlay styles --- */
+/* Splash / pre-home overlay.
+   Rendered in the layout so it is present on the very first paint and covers
+   the whole site. A blocking <head> script adds `splash-entered` to <html>
+   before paint for visitors who already entered, hiding it with no flash. */
+#splash-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-black);
+  opacity: 1;
+  transition: opacity 800ms ease;
+}
+#splash-overlay.is-exiting {
+  opacity: 0;
+  pointer-events: none;
+}
+html.splash-entered #splash-overlay {
+  display: none;
+}
+/* Lock scroll while the splash is up. */
+html:not(.splash-entered) body {
+  overflow: hidden;
+}
+
+/* Staggered fade-up for splash content. */
+@keyframes splash-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.splash-rise {
+  opacity: 0;
+  animation: splash-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

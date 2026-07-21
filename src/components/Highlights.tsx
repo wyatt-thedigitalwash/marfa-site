@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const TILES = [
-  { label: "Music", href: "/music", image: "/backgrounds/marfa_image1.jpg" },
-  { label: "Video", href: "/video", image: "/backgrounds/marfa_image2.jpg" },
+  { label: "Music", href: "/music", image: "/backgrounds/Marfa_VideoSquare.jpg" },
+  { label: "Video", href: "/video", image: "/backgrounds/marfa_image1.jpg" },
   { label: "Tour", href: "/tour", image: "/backgrounds/marfa_image3.jpg" },
 ];
 
@@ -11,7 +11,7 @@ export default function Highlights() {
   return (
     <section
       aria-label="Explore Marfa"
-      className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 p-3 md:p-4"
+      className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 px-3 md:px-4 pb-3 md:pb-4"
       style={{ backgroundColor: "var(--color-cream)" }}
     >
       {TILES.map((tile) => (

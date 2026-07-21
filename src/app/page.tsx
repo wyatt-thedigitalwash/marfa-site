@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import HeroStack from "@/components/HeroStack";
 import FilmReel from "@/components/FilmReel";
-import About from "@/components/About";
+// import About from "@/components/About"; // temporarily hidden pending new copy
+import Discography from "@/components/Discography";
 import Highlights from "@/components/Highlights";
 import TourPreview from "@/components/TourPreview";
 import Signup from "@/components/Signup";
@@ -38,14 +39,16 @@ export default function Home() {
 
       <FilmReel />
 
-      {/* Breath */}
+      {/* About temporarily hidden pending new copy -- restore this block (and
+          its cream breath spacer) once the new text arrives.
       <section
         className="py-20 md:py-32"
         style={{ backgroundColor: "var(--color-cream)" }}
         aria-hidden="true"
       />
+      <About /> */}
 
-      <About />
+      <Discography />
       <Highlights />
       <Signup />
     </>

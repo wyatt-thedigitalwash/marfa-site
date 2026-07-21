@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MetaPixel from "@/components/MetaPixel";
 import GoogleTags from "@/components/GoogleTags";
+import Splash from "@/components/Splash";
 import "./globals.css";
 
 // Google Tag Manager container ported from the legacy WordPress site.
@@ -92,6 +93,13 @@ export default function RootLayout({
       className={`${boringSans.variable} ${newsreader.variable} h-full antialiased`}
     >
       <head>
+        {/* Runs before first paint: hide the splash for visitors who already
+            entered this session, so they never see even a flash of it. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem('marfa_splash_lasttimelast')){document.documentElement.classList.add('splash-entered')}}catch(e){}`,
+          }}
+        />
         <Script
           id="gtm-loader"
           strategy="afterInteractive"
@@ -101,6 +109,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
+        <Splash />
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
