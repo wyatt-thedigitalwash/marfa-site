@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const ICON_SIZE = 20;
 
 function InstagramIcon() {
@@ -209,12 +211,61 @@ export default function Footer() {
           ))}
         </div>
 
+        {/* Label / partner logos */}
+        <div className="flex items-center justify-center gap-6 md:gap-8 flex-wrap">
+          <a
+            href="https://www.bigmachinerecords.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Big Machine Records (opens in new tab)"
+            className="hover:opacity-60 transition-opacity flex items-center mr-1 md:mr-2"
+          >
+            <Image
+              src="/branding/BMR_LOGO_4C_WHITE_trim.png"
+              alt="Big Machine Records"
+              width={1327}
+              height={605}
+              className="h-6 md:h-8 w-auto"
+            />
+          </a>
+          <a
+            href="https://borchettaeg.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Borchetta Entertainment Group (opens in new tab)"
+            className="hover:opacity-60 transition-opacity flex items-center"
+          >
+            <Image
+              src="/branding/BEG_Logo_trim.png"
+              alt="Borchetta Entertainment Group"
+              width={682}
+              height={426}
+              className="h-8 md:h-10 w-auto"
+            />
+          </a>
+          <a
+            href="https://www.ascendmusic.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ascend Music (opens in new tab)"
+            className="hover:opacity-60 transition-opacity flex items-center"
+          >
+            <Image
+              src="/branding/AscendMusic_LogoWhite_trim.png"
+              alt="Ascend Music"
+              width={206}
+              height={113}
+              className="h-6 md:h-8 w-auto"
+            />
+          </a>
+        </div>
+
         {/* Legal line */}
         <p
           className="font-[family-name:var(--font-body)] text-xs text-center leading-relaxed"
           style={{ color: "var(--color-cream)", opacity: 0.7 }}
         >
-          &copy; Borchetta Entertainment Group, LLC d/b/a Big Machine Records.
+          &copy; Borchetta Entertainment Group, LLC d/b/a Big Machine Records / &copy;2026 ASCEND Music
         </p>
 
         {/* Footer links */}
