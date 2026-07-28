@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import CookieChoicesLink from "@/components/legal/CookieChoicesLink";
 
 const ICON_SIZE = 20;
 
@@ -177,13 +179,12 @@ const SOCIAL_LINKS = [
 ];
 
 const FOOTER_LINKS = [
-  { label: "Privacy", href: "https://www.bigmachinerecords.com/privacy" },
-  { label: "Cookie Choices", href: "https://www.bigmachinerecords.com/privacy#cookies" },
-  { label: "Terms & Conditions", href: "https://www.bigmachinerecords.com/terms" },
-  {
-    label: "Do Not Sell My Personal Information",
-    href: "https://www.bigmachinerecords.com/privacy#10.2",
-  },
+  { label: "Terms", href: "/legal/terms" },
+  { label: "Privacy", href: "/legal/privacy" },
+  { label: "Copyright (DMCA)", href: "/legal/dmca" },
+  { label: "Cybersecurity", href: "/legal/cybersecurity" },
+  { label: "TCPA", href: "/legal/tcpa" },
+  { label: "Do Not Sell My Personal Information", href: "/legal/privacy#s10-2" },
 ];
 
 export default function Footer() {
@@ -281,18 +282,25 @@ export default function Footer() {
                   |
                 </span>
               )}
-              <a
+              <Link
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="font-[family-name:var(--font-body)] text-xs underline hover:opacity-60 transition-opacity min-h-[44px] flex items-center"
                 style={{ color: "var(--color-cream)", opacity: 0.7 }}
               >
                 {link.label}
-                <span className="sr-only"> (opens in new tab)</span>
-              </a>
+              </Link>
             </span>
           ))}
+          <span className="flex items-center gap-4">
+            <span
+              aria-hidden="true"
+              className="text-xs"
+              style={{ color: "var(--color-cream)", opacity: 0.3 }}
+            >
+              |
+            </span>
+            <CookieChoicesLink className="font-[family-name:var(--font-body)] text-xs underline opacity-70 hover:opacity-60 transition-opacity min-h-[44px] flex items-center cursor-pointer text-[color:var(--color-cream)]" />
+          </span>
         </div>
       </div>
     </footer>

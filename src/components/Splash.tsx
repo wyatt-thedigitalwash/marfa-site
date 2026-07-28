@@ -1,12 +1,28 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Bump this key when a new single ships to re-show the splash to everyone.
 const SPLASH_KEY = "marfa_splash_lasttimelast";
 const LISTEN_URL = "https://marfamusic.ffm.to/lasttimelast";
 
 export default function Splash() {
+  const pathname = usePathname();
+
+  // Keep the splash from blocking legal pages. On /legal routes we add
+  // `splash-exempt` to <html> (splash hidden + scroll unlocked) WITHOUT marking
+  // the visitor entered, so reading the Terms is not treated as agreeing. This
+  // runs on client navigation too (e.g. clicking the notice link on the splash);
+  // the head script handles the very first paint.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (root.classList.contains("splash-entered")) return;
+    root.classList.toggle("splash-exempt", pathname.startsWith("/legal"));
+  }, [pathname]);
+
   const enterSite = () => {
     try {
       sessionStorage.setItem(SPLASH_KEY, "1");
@@ -122,6 +138,27 @@ export default function Splash() {
                 Enter Site
               </button>
             </div>
+
+            {/* Arbitration / class-action notice, directly under the entry
+                buttons so no visitor can claim they had no notice of it. */}
+            <p
+              className="splash-rise mt-6 max-w-[420px] text-[11px] leading-relaxed"
+              style={{ color: "var(--color-cream)", opacity: 0.7, animationDelay: "600ms" }}
+            >
+              By entering, you consent to our{" "}
+              <Link href="/legal/terms" className="font-semibold underline underline-offset-2 transition-opacity hover:opacity-70">
+                Terms &amp; Conditions
+              </Link>
+              , including{" "}
+              <Link href="/legal/terms#section-17" className="font-semibold underline underline-offset-2 transition-opacity hover:opacity-70">
+                binding arbitration
+              </Link>{" "}
+              and a{" "}
+              <Link href="/legal/terms#class-action-waiver" className="font-semibold underline underline-offset-2 transition-opacity hover:opacity-70">
+                waiver of class action rights
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </div>

@@ -7,6 +7,9 @@ import Footer from "@/components/Footer";
 import MetaPixel from "@/components/MetaPixel";
 import GoogleTags from "@/components/GoogleTags";
 import Splash from "@/components/Splash";
+import AnchorScroll from "@/components/shared/AnchorScroll";
+import CookieConsent from "@/components/consent/CookieConsent";
+import TermsGate from "@/components/consent/TermsGate";
 import "./globals.css";
 
 // Google Tag Manager container ported from the legacy WordPress site.
@@ -90,14 +93,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // The pre-paint head script may add `splash-entered` / `splash-exempt`
+      // to <html> before React hydrates, so its className intentionally differs
+      // from the server render on those routes.
+      suppressHydrationWarning
       className={`${boringSans.variable} ${newsreader.variable} h-full antialiased`}
     >
       <head>
         {/* Runs before first paint: hide the splash for visitors who already
-            entered this session, so they never see even a flash of it. */}
+            entered this session (splash-entered), or who are deep-linking
+            straight to a legal page (splash-exempt -- hidden but NOT entered),
+            so they never see even a flash of it. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem('marfa_splash_lasttimelast')){document.documentElement.classList.add('splash-entered')}}catch(e){}`,
+            __html: `try{var e=document.documentElement;if(sessionStorage.getItem('marfa_splash_lasttimelast')){e.classList.add('splash-entered')}else if(location.pathname.indexOf('/legal')===0){e.classList.add('splash-exempt')}}catch(err){}`,
           }}
         />
         <Script
@@ -110,6 +119,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <Splash />
+        <AnchorScroll />
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -131,6 +141,8 @@ export default function RootLayout({
         <Header />
         <main id="main-content" className="flex-1">{children}</main>
         <Footer />
+        <CookieConsent />
+        <TermsGate />
       </body>
     </html>
   );

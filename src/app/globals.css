@@ -5,6 +5,15 @@
   --color-black: #211F21;
   --font-display: var(--font-boring-sans);
   --font-body: var(--font-newsreader);
+
+  /* Design tokens consumed by the ported legal / consent components. Mapped to
+     the Marfa palette: cream surfaces, black text, no accent color (strict
+     two-color system per SITE.md). */
+  --background-primary: #E8E3CF;
+  --background-alt: #E8E3CF;
+  --text-header: #211F21;
+  --text-body: #211F21;
+  --text-accent: #211F21;
 }
 
 @theme inline {
@@ -12,6 +21,13 @@
   --color-black: #211F21;
   --font-display: var(--font-boring-sans);
   --font-body: var(--font-newsreader);
+
+  /* Aliases so the ported legal/consent components resolve to Marfa's system */
+  --color-background-primary: var(--background-primary);
+  --color-background-alt: var(--background-alt);
+  --color-text-header: var(--text-header);
+  --color-text-body: var(--text-body);
+  --color-text-accent: var(--text-accent);
 }
 
 body {
@@ -77,11 +93,14 @@ footer :focus-visible {
   opacity: 0;
   pointer-events: none;
 }
-html.splash-entered #splash-overlay {
+html.splash-entered #splash-overlay,
+html.splash-exempt #splash-overlay {
   display: none;
 }
-/* Lock scroll while the splash is up. */
-html:not(.splash-entered) body {
+/* Lock scroll while the splash is up -- but not on exempt routes like /legal,
+   where the splash is hidden so a deep-linked visitor can read and scroll the
+   policy without being marked as having entered the site. */
+html:not(.splash-entered):not(.splash-exempt) body {
   overflow: hidden;
 }
 
@@ -111,5 +130,56 @@ html:not(.splash-entered) body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* --- Legal / Policy Pages ---
+   Marfa is a strict two-color system (cream + black, no accent). Hyperlinks
+   inside legal copy are black and underlined so they read as links against the
+   cream page without introducing any color the design system does not use. */
+.legal-prose a {
+  color: var(--color-black);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: opacity 200ms;
+  word-break: break-word;
+}
+.legal-prose a:hover {
+  opacity: 0.6;
+}
+
+/* --- Cookie Consent / Terms Gate Buttons ---
+   Flat rectangular editorial buttons per SITE.md (no pills, no accent colors).
+   Primary: black fill / cream text (matches the footer + splash primary CTA).
+   Ghost: transparent with a black outline. */
+.cc-btn {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-display), sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+  border: 1px solid rgba(33, 31, 33, 0.6);
+  transition: all 200ms;
+  cursor: pointer;
+}
+.cc-btn-primary {
+  background: var(--color-black);
+  color: var(--color-cream);
+  border-color: var(--color-black);
+}
+.cc-btn-primary:hover {
+  background: transparent;
+  color: var(--color-black);
+}
+.cc-btn-ghost {
+  background: transparent;
+  color: var(--color-black);
+}
+.cc-btn-ghost:hover {
+  background: var(--color-black);
+  color: var(--color-cream);
 }
 
