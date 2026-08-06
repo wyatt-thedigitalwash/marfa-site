@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { RELEASES } from "@/lib/releases";
 
-// Flush, edge-to-edge wall of every single's cover art. No titles -- each
-// cover links to its streaming smart-link.
+// Flush, edge-to-edge wall of cover art. No titles -- each cover links to its
+// streaming smart-link. Capped at the newest eight so the desktop grid stays a
+// single clean row of eight; older singles still live on /music.
+const HOME_WALL_COUNT = 8;
+
 export default function Discography() {
   return (
     <section
@@ -10,7 +13,7 @@ export default function Discography() {
       className="grid grid-cols-4 md:grid-cols-8 gap-3 md:gap-4 p-3 md:p-4"
       style={{ backgroundColor: "var(--color-cream)" }}
     >
-      {RELEASES.map((release) => (
+      {RELEASES.slice(0, HOME_WALL_COUNT).map((release) => (
         <a
           key={release.title}
           href={release.link}

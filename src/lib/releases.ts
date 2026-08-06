@@ -1,6 +1,13 @@
 // Single source of truth for Marfa's singles, newest first.
-// Used by the music page grid and the home-page cover wall.
+// The music page lists all of these; the home-page cover wall shows only the
+// newest eight, so adding a release here pushes the oldest off the home wall
+// without dropping it from /music.
 export const RELEASES = [
+  {
+    title: "Remedy",
+    cover: "/covers/Marfa_Remedy_Cover.jpg",
+    link: "https://marfamusic.ffm.to/remedy.OWE",
+  },
   {
     title: "Last Time Last",
     cover: "/covers/Marfa_LastTimeLast_Cover.jpg",
