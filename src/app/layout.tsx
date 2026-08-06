@@ -106,7 +106,7 @@ export default function RootLayout({
             so they never see even a flash of it. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var e=document.documentElement;if(sessionStorage.getItem('marfa_splash_lasttimelast')){e.classList.add('splash-entered')}else if(location.pathname.indexOf('/legal')===0){e.classList.add('splash-exempt')}}catch(err){}`,
+            __html: `try{var e=document.documentElement;if(sessionStorage.getItem('marfa_splash_remedy')){e.classList.add('splash-entered')}else if(location.pathname.indexOf('/legal')===0){e.classList.add('splash-exempt')}}catch(err){}`,
           }}
         />
         <Script
