@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // Bump this key when a new single ships to re-show the splash to everyone.
-const SPLASH_KEY = "marfa_splash_remedy";
+const SPLASH_KEY = "marfa_splash_remedy_out";
 const LISTEN_URL = "https://marfamusic.ffm.to/remedy.OWE";
 
 // Longest the content will wait on the artwork before revealing anyway. A slow
@@ -61,7 +61,7 @@ export default function Splash() {
       id="splash-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label="Marfa -- pre-save the new single, Remedy"
+      aria-label="Marfa -- listen to the new single, Remedy"
     >
       {/* Backdrop: the cover's own room, cropped to the desk lamp and blown out
           of focus so only the light falloff survives. It puts the practical
@@ -96,7 +96,7 @@ export default function Splash() {
             href={LISTEN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Pre-save Remedy (opens in new tab)"
+            aria-label="Listen to Remedy (opens in new tab)"
             className="splash-rise relative block w-72 h-72 md:w-[30rem] md:h-[30rem] shrink-0 overflow-hidden shadow-2xl"
             style={{ animationDelay: "0ms" }}
           >
@@ -121,7 +121,7 @@ export default function Splash() {
               className="splash-rise font-[family-name:var(--font-display)] uppercase tracking-[0.35em] mr-[-0.35em] text-[11px]"
               style={{ color: "var(--color-cream)", "--rise-to": 0.75, animationDelay: "180ms" } as React.CSSProperties}
             >
-              Pre-Save
+              New Single
             </span>
             <h1
               className="splash-rise mt-4 font-[family-name:var(--font-display)] uppercase tracking-[0.12em] leading-[0.95]"
@@ -137,7 +137,7 @@ export default function Splash() {
               className="splash-rise mt-4 font-[family-name:var(--font-display)] uppercase tracking-[0.25em] mr-[-0.25em] text-[11px]"
               style={{ color: "var(--color-cream)", "--rise-to": 0.75, animationDelay: "420ms" } as React.CSSProperties}
             >
-              Out August 14th
+              Out Now
             </p>
 
             <div
@@ -151,7 +151,7 @@ export default function Splash() {
                 className="w-full sm:w-auto text-center font-[family-name:var(--font-display)] uppercase tracking-[0.2em] text-xs px-10 py-4 transition-opacity duration-300 hover:opacity-80"
                 style={{ backgroundColor: "var(--color-cream)", color: "var(--color-black)" }}
               >
-                Pre-Save Now
+                Listen Now
                 <span className="sr-only"> (opens in new tab)</span>
               </a>
               <button

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 // Session key mirrored from Splash.tsx. Marks the visitor as having entered.
-const SPLASH_KEY = "marfa_splash_remedy";
+const SPLASH_KEY = "marfa_splash_remedy_out";
 
 // Immediately mark the visitor as entered (no exit animation). Used by the
 // TermsGate escape hatch when someone deep-linked to /legal before entering
