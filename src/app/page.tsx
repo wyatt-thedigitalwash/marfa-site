@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import HeroStack from "@/components/HeroStack";
 import FilmReel from "@/components/FilmReel";
-// import About from "@/components/About"; // temporarily hidden pending new copy
+import About from "@/components/About";
 import Discography from "@/components/Discography";
 import Highlights from "@/components/Highlights";
 import TourPreview from "@/components/TourPreview";
@@ -39,14 +39,14 @@ export default function Home() {
 
       <FilmReel />
 
-      {/* About temporarily hidden pending new copy -- restore this block (and
-          its cream breath spacer) once the new text arrives.
+      {/* Cream breath spacer between the film reel and the About block */}
       <section
         className="py-20 md:py-32"
         style={{ backgroundColor: "var(--color-cream)" }}
         aria-hidden="true"
       />
-      <About /> */}
+
+      <About />
 
       <Discography />
       <Highlights />
