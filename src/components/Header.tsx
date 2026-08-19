@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { HEADER_SOCIALS } from "@/components/SocialIcons";
 
 const NAV_LINKS = [
+  { label: "About", href: "/#about" },
   { label: "Music", href: "/music" },
   { label: "Video", href: "/video" },
   { label: "Tour", href: "/tour" },

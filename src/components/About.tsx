@@ -43,7 +43,8 @@ export default function About() {
       {/* Content with vertical padding for image reveal */}
       <div className="relative z-10 pt-[30vh] pb-[30vh] px-6 md:px-10">
         <div
-          className="max-w-[680px] mx-auto py-20 md:py-32 px-6 md:px-16"
+          id="about"
+          className="max-w-[680px] mx-auto py-20 md:py-32 px-6 md:px-16 scroll-mt-24"
           style={{ backgroundColor: "var(--color-cream)" }}
         >
           <h2
