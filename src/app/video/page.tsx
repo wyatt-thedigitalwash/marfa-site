@@ -34,6 +34,8 @@ const breadcrumbJsonLd = {
 };
 
 const VIDEOS = [
+  { title: "Remedy (Official Video)", id: "OyFJG2io1ao" },
+  { title: "Last Time Last (Official Video)", id: "rLGsD8E5vfs" },
   { title: "If It Ain't You (Official Video)", id: "4JNaoEFPTcM" },
   { title: "American Blues (Official Video)", id: "4lXVYpu6AS4" },
   { title: "A Million Ways (Official Video)", id: "61HJZ4YPEgI" },
