@@ -30,6 +30,21 @@ const newsreader = Newsreader({
   display: "swap",
 });
 
+// EP-campaign fonts for the We'll All Be Okay splash ONLY. They ship with the
+// EP's own branding and must not leak into the rest of the site, which stays
+// on the SITE.md two-font system. Referenced nowhere but Splash.tsx.
+const splashDisplay = localFont({
+  src: "../../public/fonts/BootzyTM.ttf",
+  variable: "--font-splash-display",
+  display: "swap",
+});
+
+const splashLabel = localFont({
+  src: "../../public/fonts/Berthold Akzidenz Grotesk Regular.otf",
+  variable: "--font-splash-label",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.officialmarfa.com"),
   title: "Marfa | Official Site",
@@ -97,7 +112,7 @@ export default function RootLayout({
       // to <html> before React hydrates, so its className intentionally differs
       // from the server render on those routes.
       suppressHydrationWarning
-      className={`${boringSans.variable} ${newsreader.variable} h-full antialiased`}
+      className={`${boringSans.variable} ${newsreader.variable} ${splashDisplay.variable} ${splashLabel.variable} h-full antialiased`}
     >
       <head>
         {/* Runs before first paint: hide the splash for visitors who already
@@ -106,7 +121,7 @@ export default function RootLayout({
             so they never see even a flash of it. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var e=document.documentElement;if(sessionStorage.getItem('marfa_splash_remedy_out')){e.classList.add('splash-entered')}else if(location.pathname.indexOf('/legal')===0){e.classList.add('splash-exempt')}}catch(err){}`,
+            __html: `try{var e=document.documentElement;if(sessionStorage.getItem('marfa_splash_wellallbeokay_ep')){e.classList.add('splash-entered')}else if(location.pathname.indexOf('/legal')===0){e.classList.add('splash-exempt')}}catch(err){}`,
           }}
         />
         <Script

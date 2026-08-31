@@ -112,6 +112,14 @@ export default function MusicPage() {
             >
               {release.title}
             </h2>
+            {release.note && (
+              <p
+                className="font-[family-name:var(--font-display)] text-[10px] uppercase tracking-[0.18em] text-center mt-2 opacity-60"
+                style={{ color: "var(--color-black)" }}
+              >
+                {release.note}
+              </p>
+            )}
           </a>
         ))}
       </div>

@@ -1,8 +1,21 @@
-// Single source of truth for Marfa's singles, newest first.
+// Single source of truth for Marfa's releases, newest first.
 // The music page lists all of these; the home-page cover wall shows only the
 // newest eight, so adding a release here pushes the oldest off the home wall
 // without dropping it from /music.
-export const RELEASES = [
+// `note` renders under the title on /music only (e.g. an EP's release date
+// while it is still in pre-save). Remove it once the release is out.
+export const RELEASES: {
+  title: string;
+  cover: string;
+  link: string;
+  note?: string;
+}[] = [
+  {
+    title: "We'll All Be Okay",
+    cover: "/covers/MARFA_WellAllBeOkay_Cover.jpg",
+    link: "https://marfamusic.ffm.to/wellallbeokay",
+    note: "EP • Out October 23",
+  },
   {
     title: "Remedy",
     cover: "/covers/Marfa_Remedy_Cover.jpg",
