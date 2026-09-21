@@ -7,10 +7,6 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "i.ytimg.com",
       },
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-      },
     ],
   },
   async redirects() {

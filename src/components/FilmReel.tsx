@@ -4,17 +4,19 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 
 const CLIPS = [
-  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165918/Marfa_AMillionWays_zku2xi.mp4",
-  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165918/Marfa_Daisy_vvsp4k.mp4",
-  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165917/Marfa_AmericanLonely_iq0amm.mp4",
-  "https://res.cloudinary.com/dgbiatexy/video/upload/v1784165918/Marfa_LittleMissTwoTime_e59jdf.mp4",
+  "https://media.thedigitalwash.com/marfa/Marfa_AMillionWays_zku2xi.mp4",
+  "https://media.thedigitalwash.com/marfa/Marfa_Daisy_vvsp4k.mp4",
+  "https://media.thedigitalwash.com/marfa/Marfa_AmericanLonely_iq0amm.mp4",
+  "https://media.thedigitalwash.com/marfa/Marfa_LittleMissTwoTime_e59jdf.mp4",
 ];
 
 const FRAME_COUNT = CLIPS.length + 1; // 4 videos + 1 CTA
 
 async function prefetchVideos() {
   for (const src of CLIPS) {
-    await fetch(src, { priority: "low" } as RequestInit).catch(() => {});
+    await fetch(src, { priority: "low", mode: "no-cors" } as RequestInit).catch(
+      () => {}
+    );
   }
 }
 
