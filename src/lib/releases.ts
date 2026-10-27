@@ -14,7 +14,6 @@ export const RELEASES: {
     title: "We'll All Be Okay",
     cover: "/covers/MARFA_WellAllBeOkay_Cover.jpg",
     link: "https://marfamusic.ffm.to/wellallbeokay",
-    note: "EP • Out October 23",
   },
   {
     title: "Remedy",

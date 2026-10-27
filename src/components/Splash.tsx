@@ -61,7 +61,7 @@ export default function Splash() {
       id="splash-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label="Marfa -- pre-save the new EP, We'll All Be Okay"
+      aria-label="Marfa -- listen to the new EP, We'll All Be Okay"
     >
       {/* Backdrop: the EP cover itself, blown up past the frame, heavily
           blurred and pulled down dark. The red racing stripe survives the blur
@@ -90,7 +90,7 @@ export default function Splash() {
             href={LISTEN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Pre-save We'll All Be Okay (opens in new tab)"
+            aria-label="Listen to We'll All Be Okay (opens in new tab)"
             className="splash-rise relative block w-72 h-72 md:w-[30rem] md:h-[30rem] shrink-0 overflow-hidden shadow-2xl"
             style={{ animationDelay: "0ms" }}
           >
@@ -115,7 +115,7 @@ export default function Splash() {
               className="splash-rise font-[family-name:var(--font-splash-display)] uppercase tracking-[0.35em] mr-[-0.35em] text-[11px]"
               style={{ color: "#fff", "--rise-to": 0.75, animationDelay: "180ms" } as React.CSSProperties}
             >
-              New EP &bull; Out October 23
+              New EP &bull; Out Now
             </span>
             <h1
               className="splash-rise mt-4 font-[family-name:var(--font-splash-display)] uppercase tracking-[0.12em] leading-[0.95]"
@@ -141,7 +141,7 @@ export default function Splash() {
                 className="w-full sm:w-auto text-center font-[family-name:var(--font-splash-display)] uppercase tracking-[0.2em] text-xs px-10 py-4 transition-opacity duration-300 hover:opacity-80"
                 style={{ backgroundColor: "#fff", color: "var(--color-black)" }}
               >
-                Pre-Save
+                Listen Now
                 <span className="sr-only"> (opens in new tab)</span>
               </a>
               <button
