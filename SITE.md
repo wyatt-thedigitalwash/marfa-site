@@ -111,6 +111,7 @@ Upcoming releases produced by 3-time Grammy Award nominated Jonathan Wilson (Daw
 
 | Title                                  | YouTube ID    |
 |----------------------------------------|---------------|
+| Waco (Official Video)                  | `il1NyzRVrXs` |
 | American Blues (Official Video)         | `4lXVYpu6AS4` |
 | A Million Ways (Official Video)        | `61HJZ4YPEgI` |
 | American Lonely                        | `ZM8fvt7Gjr4` |

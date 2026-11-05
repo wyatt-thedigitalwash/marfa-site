@@ -34,6 +34,7 @@ const breadcrumbJsonLd = {
 };
 
 const VIDEOS = [
+  { title: "Waco (Official Video)", id: "il1NyzRVrXs" },
   { title: "Remedy (Official Video)", id: "OyFJG2io1ao" },
   { title: "Last Time Last (Official Video)", id: "rLGsD8E5vfs" },
   { title: "If It Ain't You (Official Video)", id: "4JNaoEFPTcM" },
