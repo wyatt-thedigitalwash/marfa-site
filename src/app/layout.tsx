@@ -1,22 +1,14 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import localFont from "next/font/local";
 import { Newsreader } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import MetaPixel from "@/components/MetaPixel";
-import GoogleTags from "@/components/GoogleTags";
 import Splash from "@/components/Splash";
 import AnchorScroll from "@/components/shared/AnchorScroll";
 import CookieConsent from "@/components/consent/CookieConsent";
+import RouteTracker from "@/components/consent/RouteTracker";
 import TermsGate from "@/components/consent/TermsGate";
 import "./globals.css";
-
-// Google Tag Manager container ported from the legacy WordPress site.
-// This container manages GA4 (G-FVWZ0RM4DH), Google Ads (AW-17574370157),
-// the Meta Pixel (1858545644702596), and the UMG audience/consent stack
-// (ad.gt, HadronID, Evidon consent banner) -- they load through GTM.
-const GTM_ID = "GTM-5MF7DJ3X";
 
 const boringSans = localFont({
   src: "../../public/fonts/BoringSansBold.ttf",
@@ -124,28 +116,14 @@ export default function RootLayout({
             __html: `try{var e=document.documentElement;if(sessionStorage.getItem('marfa_splash_wellallbeokay_ep')){e.classList.add('splash-entered')}else if(location.pathname.indexOf('/legal')===0){e.classList.add('splash-exempt')}}catch(err){}`,
           }}
         />
-        <Script
-          id="gtm-loader"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
-          }}
-        />
       </head>
       <body className="min-h-full flex flex-col">
         <Splash />
         <AnchorScroll />
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-            title="Google Tag Manager"
-          />
-        </noscript>
-        <MetaPixel />
-        <GoogleTags />
+        {/* The label GTM container (GTM-5MF7DJ3X) is NOT loaded here. It is
+            injected only after the visitor consents -- see
+            components/consent/injectScripts.ts. */}
+        <RouteTracker />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
